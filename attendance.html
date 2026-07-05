@@ -2,46 +2,63 @@
 <html>
 <head>
     <title>Attendance</title>
-    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="navbar">
-        <h2>Attendance System</h2>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="report.html">Reports</a>
-        <a href="students.html">Students</a>
-    </div>
+    <h2>Mark Attendance</h2>
 
-    <div class="container">
-        <h1>Attendance Marking</h1>
-
-        <table class="table">
+    <table border="1">
+        <thead>
             <tr>
-                <th>Roll No</th>
+                <th>Roll</th>
                 <th>Name</th>
-                <th>Status</th>
+                <th>Present</th>
+                <th>Absent</th>
             </tr>
+        </thead>
+        <tbody id="studentsTable"></tbody>
+    </table>
 
-            <tr>
-                <td>01</td>
-                <td>Rahul Sharma</td>
-                <td><button class="present-btn">Present</button></td>
-            </tr>
+    <!-- ⭐ Add JavaScript here -->
+    <script>
+        // Load students from backend
+        fetch("https://attendance-backend-production-ea16.up.railway.app/attendance")
+            .then(res => res.json())
+            .then(data => {
+                let html = "";
+                data.forEach(s => {
+                    html += `
+                        <tr>
+                            <td>${s.roll}</td>
+                            <td>${s.name}</td>
+                            <td><button onclick="markAttendance('${s.roll}', 'Present')">Present</button></td>
+                            <td><button onclick="markAttendance('${s.roll}', 'Absent')">Absent</button></td>
+                        </tr>
+                    `;
+                });
+                document.getElementById("studentsTable").innerHTML = html;
+            });
 
-            <tr>
-                <td>02</td>
-                <td>Priya Singh</td>
-                <td><button class="absent-btn">Absent</button></td>
-            </tr>
+        // Save attendance to backend
+        function markAttendance(roll, status) {
+            const today = new Date().toISOString().split("T")[0];
 
-            <tr>
-                <td>03</td>
-                <td>Arjun Patel</td>
-                <td><button class="present-btn">Present</button></td>
-            </tr>
-        </table>
-    </div>
+            fetch("https://attendance-backend-production-ea16.up.railway.app/attendance"), {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    roll,
+                    status,
+                    date: today
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Attendance saved: " + status);
+            });
+        }
+    </script>
 
 </body>
 </html>

@@ -2,37 +2,37 @@
 <html>
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+        .btn {
+            display: block;
+            width: 250px;
+            padding: 15px;
+            margin: 10px 0;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 18px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
+
 <body>
 
-    <div class="navbar">
-        <h2>Attendance System</h2>
-        <a href="attendance.html">Attendance</a>
-        <a href="report.html">Reports</a>
-        <a href="students.html">Students</a>
-    </div>
+    <h2>Dashboard</h2>
+    <p>Welcome! Choose an option:</p>
 
-    <div class="container">
-        <h1>Dashboard</h1>
-
-        <div class="cards">
-            <div class="card">
-                <h2>Total Students</h2>
-                <p>120</p>
-            </div>
-
-            <div class="card">
-                <h2>Classes</h2>
-                <p>6</p>
-            </div>
-
-            <div class="card">
-                <h2>Attendance Today</h2>
-                <p>85%</p>
-            </div>
-        </div>
-    </div>
+    <a class="btn" href="students.html">Students List</a>
+    <a class="btn" href="attendance.html">Mark Attendance</a>
+    <a class="btn" href="attendance-report.html">Attendance Report</a>
 
 </body>
 </html>
